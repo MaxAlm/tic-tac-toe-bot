@@ -1,0 +1,40 @@
+body {
+    margin: 0px 0px;
+    background-color: rgb(10, 10, 10);
+}
+
+h1 {
+    position: relative;
+    top: -30px;
+    color: white;
+
+    text-align: center;
+    font-size: 46px;
+    line-height: 0.9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    width: 450px;
+    height: 560px;
+}
+
+.gameboard {
+    position: absolute;
+    bottom: 0px;
+    border: 3px solid white;
+
+    display: grid;
+    grid-template-columns: 150px 150px 150px;
+    grid-template-rows: 150px 150px 150px;
+}
+
+.tile {
+    border: 3px solid white;
+}
