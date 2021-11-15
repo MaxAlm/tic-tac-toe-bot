@@ -38,6 +38,7 @@ function TileClick(y, x, element) {
 
 function CheckForWinner() {
     var winner = false;
+    let names = [];
 
     // Check horizontal
     if (!winner) {
@@ -45,6 +46,7 @@ function CheckForWinner() {
             if (tiles[y][0] == player &&
                 tiles[y][1] == player &&
                 tiles[y][2] == player) {
+                    names = [y.toString() + "0", y.toString() + "1", y.toString() + "2"];
                     winner = true;
                     break;
                 }
@@ -57,6 +59,7 @@ function CheckForWinner() {
             if (tiles[0][x] == player &&
                 tiles[1][x] == player &&
                 tiles[2][x] == player) {
+                    names = ["0" + x.toString(), "1" + x.toString(), "2" + x.toString()];
                     winner = true;
                     break;
                 }
@@ -69,6 +72,7 @@ function CheckForWinner() {
         if (tiles[0][2] == player &&
             tiles[1][1] == player &&
             tiles[2][0] == player) {
+                names = ["02", "11", "20"];
                 winner = true;
             }
             
@@ -76,6 +80,7 @@ function CheckForWinner() {
         if (tiles[0][0] == player &&
             tiles[1][1] == player &&
             tiles[2][2] == player) {
+                names = ["00", "11", "22"];
                 winner = true;
             }
     }
@@ -84,6 +89,12 @@ function CheckForWinner() {
     if (winner) {
         gameActive = false;
         
+        // Set winning set background color
+        for (let i = 0; i < names.length; i++) {
+            var t = document.getElementsByName(names[i]);
+            t[0].style.backgroundColor = "#575757";
+        }
+
         // Show and animate reset button
         document.getElementById("reset").style.display = "block";
         document.getElementById("reset").style.animationName = "fadeIn";
@@ -119,11 +130,13 @@ function NewGame() {
 
     // Reset all crosses
     for (let i = (cross.length - 1); i >= 0; i--) {
+        cross[i].style.backgroundColor = "transparent";
         cross[i].className = "tile";
     }
 
     // Reset all circles
     for (let i = (circle.length - 1); i >= 0; i--) {
+        circle[i].style.backgroundColor = "transparent";
         circle[i].className = "tile";
     }
 
@@ -149,20 +162,373 @@ function NewGame() {
 }
 
 function Bot() {
+    var name;
     var moved = false;
 
-    while (!moved) {
+    // Check if bot or opponent can win
+    if (turns >= 3) {
+        ////////////////////////////////
+        // Check for possible bot win //
+        ////////////////////////////////
+
+        // Check horizontal
+        for (let y = 0; y < tiles.length; y++) {
+            if (tiles[y][0] == bot &&
+                tiles[y][1] == bot &&
+                tiles[y][2] == 0) {
+                    if (!moved) {
+                        name = y.toString() + "2";
+                        var t = document.getElementsByName(name);
+                        t[0].className = "circle";
+
+                        tiles[y][2] = bot;
+                        moved = true;
+                        break;
+                    }
+                }
+
+            if (tiles[y][0] == 0 &&
+                tiles[y][1] == bot &&
+                tiles[y][2] == bot) {
+                    if (!moved) {
+                        name = y.toString() + "0";
+                        var t = document.getElementsByName(name);
+                        t[0].className = "circle";
+
+                        tiles[y][0] = bot;
+                        moved = true;
+                        break;
+                    }
+                }
+
+            if (tiles[y][0] == bot &&
+                tiles[y][1] == 0 &&
+                tiles[y][2] == bot) {
+                    if (!moved) {
+                        name = y.toString() + "1";
+                        var t = document.getElementsByName(name);
+                        t[0].className = "circle";
+
+                        tiles[y][1] = bot;
+                        moved = true;
+                        break;
+                    }
+                }
+        }
+
+        // Check vertical
+        if (!moved) {
+            for (let x = 0; x < tiles.length; x++) {
+                if (tiles[0][x] == bot &&
+                    tiles[1][x] == bot &&
+                    tiles[2][x] == 0) {
+                        if (!moved) {
+                            name = "2" + x.toString();
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+        
+                            tiles[2][x] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+        
+                if (tiles[0][x] == 0 &&
+                    tiles[1][x] == bot &&
+                    tiles[2][x] == bot) {
+                        if (!moved) {
+                            name = "0" + x.toString();
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+            
+                            tiles[0][x] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+
+                if (tiles[0][x] == bot &&
+                    tiles[1][x] == 0 &&
+                    tiles[2][x] == bot) {
+                        if (!moved) {
+                            name = "1" + x.toString();
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+            
+                            tiles[1][x] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+            }
+        }
+
+        // Check diagonal right
+        if (!moved) {
+            if (tiles[0][0] == bot &&
+                tiles[1][1] == bot &&
+                tiles[2][2] == 0) {
+                    if (!moved) {
+                        var t = document.getElementsByName("22");
+                        t[0].className = "circle";
+    
+                        tiles[2][2] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][0] == 0 &&
+                tiles[1][1] == bot &&
+                tiles[2][2] == bot) {
+                    if (!moved) {
+                        var t = document.getElementsByName("00");
+                        t[0].className = "circle";
+        
+                        tiles[0][0] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][0] == bot &&
+                tiles[1][1] == 0 &&
+                tiles[2][2] == bot) {
+                    if (!moved) {
+                        var t = document.getElementsByName("11");
+                        t[0].className = "circle";
+            
+                        tiles[1][1] = bot;
+                        moved = true;
+                    }
+                }
+        }
+
+        // Check diagonal left
+        if (!moved) {
+            if (tiles[0][2] == bot &&
+                tiles[1][1] == bot &&
+                tiles[2][0] == 0) {
+                    if (!moved) {
+                        var t = document.getElementsByName("20");
+                        t[0].className = "circle";
+    
+                        tiles[2][0] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][2] == 0 &&
+                tiles[1][1] == bot &&
+                tiles[2][0] == bot) {
+                    if (!moved) {
+                        var t = document.getElementsByName("02");
+                        t[0].className = "circle";
+        
+                        tiles[0][2] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][2] == bot &&
+                tiles[1][1] == 0 &&
+                tiles[2][0] == bot) {
+                    if (!moved) {
+                        var t = document.getElementsByName("11");
+                        t[0].className = "circle";
+            
+                        tiles[1][1] = bot;
+                        moved = true;
+                    }
+                }
+        }
+
+        /////////////////////////////////////
+        // Check for possible opponent win //
+        /////////////////////////////////////
+
+        // Check horizontal
+        if (!moved) {
+            for (let y = 0; y < tiles.length; y++) {
+                if (tiles[y][0] == human &&
+                    tiles[y][1] == human &&
+                    tiles[y][2] == 0) {
+                        if (!moved) {
+                            name = y.toString() + "2";
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+    
+                            tiles[y][2] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+    
+                if (tiles[y][0] == 0 &&
+                    tiles[y][1] == human &&
+                    tiles[y][2] == human) {
+                        if (!moved) {
+                            name = y.toString() + "0";
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+    
+                            tiles[y][0] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+    
+                if (tiles[y][0] == human &&
+                    tiles[y][1] == 0 &&
+                    tiles[y][2] == human) {
+                        if (!moved) {
+                            name = y.toString() + "1";
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+    
+                            tiles[y][1] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+            }
+        }
+
+        // Check vertical
+        if (!moved) {
+            for (let x = 0; x < tiles.length; x++) {
+                if (tiles[0][x] == human &&
+                    tiles[1][x] == human &&
+                    tiles[2][x] == 0) {
+                        if (!moved) {
+                            name = "2" + x.toString();
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+        
+                            tiles[2][x] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+        
+                if (tiles[0][x] == 0 &&
+                    tiles[1][x] == human &&
+                    tiles[2][x] == human) {
+                        if (!moved) {
+                            name = "0" + x.toString();
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+            
+                            tiles[0][x] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+
+                if (tiles[0][x] == human &&
+                    tiles[1][x] == 0 &&
+                    tiles[2][x] == human) {
+                        if (!moved) {
+                            name = "1" + x.toString();
+                            var t = document.getElementsByName(name);
+                            t[0].className = "circle";
+            
+                            tiles[1][x] = bot;
+                            moved = true;
+                            break;
+                        }
+                    }
+            }
+        }
+
+        // Check diagonal right
+        if (!moved) {
+            if (tiles[0][0] == human &&
+                tiles[1][1] == human &&
+                tiles[2][2] == 0) {
+                    if (!moved) {
+                        var t = document.getElementsByName("22");
+                        t[0].className = "circle";
+    
+                        tiles[2][2] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][0] == 0 &&
+                tiles[1][1] == human &&
+                tiles[2][2] == human) {
+                    if (!moved) {
+                        var t = document.getElementsByName("00");
+                        t[0].className = "circle";
+        
+                        tiles[0][0] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][0] == human &&
+                tiles[1][1] == 0 &&
+                tiles[2][2] == human) {
+                    if (!moved) {
+                        var t = document.getElementsByName("11");
+                        t[0].className = "circle";
+            
+                        tiles[1][1] = bot;
+                        moved = true;
+                    }
+                }
+        }
+
+        // Check diagonal left
+        if (!moved) {
+            if (tiles[0][2] == human &&
+                tiles[1][1] == human &&
+                tiles[2][0] == 0) {
+                    if (!moved) {
+                        var t = document.getElementsByName("20");
+                        t[0].className = "circle";
+    
+                        tiles[2][0] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][2] == 0 &&
+                tiles[1][1] == human &&
+                tiles[2][0] == human) {
+                    if (!moved) {
+                        var t = document.getElementsByName("02");
+                        t[0].className = "circle";
+        
+                        tiles[0][2] = bot;
+                        moved = true;
+                    }
+                }
+
+            if (tiles[0][2] == human &&
+                tiles[1][1] == 0 &&
+                tiles[2][0] == human) {
+                    if (!moved) {
+                        var t = document.getElementsByName("11");
+                        t[0].className = "circle";
+            
+                        tiles[1][1] = bot;
+                        moved = true;
+                    }
+                }
+        }
+    }
+
+    // Play random (not really)
+    if (!moved) {
         loop1:
         for (let y = 0; y < tiles.length; y++) {
             for (let x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] == 0) {
-                    tiles[y][x] = bot;
-
                     var name = y.toString() + x.toString();
-                    var til = document.getElementsByName(name);
-                    til[0].className = "circle";
-                    
-                    turns++;
+                    var t = document.getElementsByName(name);
+                    t[0].className = "circle";
+
+                    tiles[y][x] = bot;
                     moved = true;
                     break loop1;
                 }
@@ -170,6 +536,10 @@ function Bot() {
         }
     }
 
+    // Increase amount of turns by one
+    turns++;
+
+    // Check if game is won or not
     if (!CheckForWinner()) {
         // Check if maximum amount of turns is reached
         if (turns == 9) {
