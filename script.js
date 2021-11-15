@@ -1,5 +1,5 @@
 //=== VARIABLES ===//
-let tiles = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+const tiles = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 const human = 1;    // Blue
 const bot = 2;      // Red
 var player = human; // Contains the number of the current player
@@ -109,7 +109,7 @@ function ChangePlayer() {
     }
 
     if (player == bot) {
-        setTimeout(Bot, 1000 + Math.random() * 1000);
+        setTimeout(Bot, 1000 + Math.random() * 500);
     }
 }
 
