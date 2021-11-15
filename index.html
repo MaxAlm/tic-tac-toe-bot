@@ -9,26 +9,25 @@
     <title>Impossible Tic-Tac-Toe</title>
 </head>
 <body>
-    <h2 id="test" style="color: white;"></h2>
-
     <div class="content">
-        <h1>IMPOSSIBLE<br>TIC-TAC-TOE</h1>
+        <h1 id="title">TIC-TAC-TOE</h1>
         <div class="gameboard">
             <!--Row 1-->
-            <div class="tile" onclick="TileClick(0, 0, this)"></div>
-            <div class="tile" onclick="TileClick(0, 1, this)"></div>
-            <div class="tile" onclick="TileClick(0, 2, this)"></div>
+            <div name="00" class="tile" onclick="TileClick(0, 0, this)"></div>
+            <div name="01" class="tile" onclick="TileClick(0, 1, this)"></div>
+            <div name="02" class="tile" onclick="TileClick(0, 2, this)"></div>
     
             <!--Row 2-->
-            <div class="tile" onclick="TileClick(1, 0, this)"></div>
-            <div class="tile" onclick="TileClick(1, 1, this)"></div>
-            <div class="tile" onclick="TileClick(1, 2, this)"></div>
+            <div name="10" class="tile" onclick="TileClick(1, 0, this)"></div>
+            <div name="11" class="tile" onclick="TileClick(1, 1, this)"></div>
+            <div name="12" class="tile" onclick="TileClick(1, 2, this)"></div>
     
             <!--Row 3-->
-            <div class="tile" onclick="TileClick(2, 0, this)"></div>
-            <div class="tile" onclick="TileClick(2, 1, this)"></div>
-            <div class="tile" onclick="TileClick(2, 2, this)"></div>
+            <div name="20" class="tile" onclick="TileClick(2, 0, this)"></div>
+            <div name="21" class="tile" onclick="TileClick(2, 1, this)"></div>
+            <div name="22" class="tile" onclick="TileClick(2, 2, this)"></div>
         </div>
+        <h2 class="reset" id="reset" onclick="NewGame()">RESET</h2>
     </div>
 </body>
 </html>

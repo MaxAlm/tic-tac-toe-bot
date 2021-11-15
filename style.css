@@ -9,8 +9,14 @@ h1 {
     color: white;
 
     text-align: center;
-    font-size: 46px;
+    font-size: 66px;
     line-height: 0.9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    font-size: 33px;
+    color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -25,6 +31,29 @@ h1 {
     height: 560px;
 }
 
+/*Reset button*/
+.reset {
+    position: relative;
+    display: none;
+    text-align: center;
+    top: 430px;
+    left: 170px;
+
+    width: 110px;
+    height: 50px;
+    border: 4px solid white;
+    border-radius: 11px;
+    transition: 0.2s;
+
+    animation-name: none;
+    animation-duration: 0.5s;
+}
+
+.reset:hover {
+    background-color: rgba(255, 255, 255, 0.288);
+}
+
+/*Gameboard*/
 .gameboard {
     position: absolute;
     bottom: 0px;
@@ -37,4 +66,32 @@ h1 {
 
 .tile {
     border: 3px solid white;
+}
+
+/*Tile types*/
+.cross {
+    border: 3px solid white;
+    background-image: url('cross.png');
+    background-size: cover;
+    width: 144px;
+    height: 144px;
+
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+
+.circle {
+    border: 3px solid white;
+    background-image: url('circle.png');
+    background-size: cover;
+    width: 144px;
+    height: 144px;
+
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+}
+
+@keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
 }
