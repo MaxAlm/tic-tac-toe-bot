@@ -66,6 +66,7 @@ h2 {
 
 .tile {
     border: 3px solid white;
+    transition: 0.5s;
 }
 
 /*Tile types*/
@@ -78,6 +79,8 @@ h2 {
 
     animation-name: fadeIn;
     animation-duration: 0.5s;
+
+    transition: 0.5s;
 }
 
 .circle {
@@ -88,7 +91,9 @@ h2 {
     height: 144px;
 
     animation-name: fadeIn;
-    animation-duration: 0.4s;
+    animation-duration: 0.5s;
+
+    transition: 0.5s;
 }
 
 @keyframes fadeIn {

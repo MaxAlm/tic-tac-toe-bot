@@ -518,22 +518,217 @@ function Bot() {
         }
     }
 
-    // Play random (not really)
-    if (!moved) {
-        loop1:
-        for (let y = 0; y < tiles.length; y++) {
-            for (let x = 0; x < tiles[y].length; x++) {
-                if (tiles[y][x] == 0) {
-                    var name = y.toString() + x.toString();
-                    var t = document.getElementsByName(name);
-                    t[0].className = "circle";
-
-                    tiles[y][x] = bot;
-                    moved = true;
-                    break loop1;
+    // If turns equals 0 or 2
+    if ((turns == 0 && !moved) || (turns == 2 && !moved)) {
+        if (turns == 0) {
+            let strat = Math.floor(Math.random() * 2);
+            let rnd = Math.floor(Math.random() * 4);
+            let t;
+            
+            if (strat == 0) {
+                t = document.getElementsByName("11");
+                t[0].className = "circle";
+                tiles[1][1] = bot;
+                moved = true;
+            } else {
+                switch (rnd) {
+                    case 0: // Top left
+                        t = document.getElementsByName("00");
+                        t[0].className = "circle";
+                        tiles[0][0] = bot;
+                        moved = true;
+                        break;
+    
+                    case 1: // Bottom left
+                        t = document.getElementsByName("20");
+                        t[0].className = "circle";
+                        tiles[2][0] = bot;
+                        moved = true;
+                        break;
+    
+                    case 2: // Bottom right
+                        t = document.getElementsByName("22");
+                        t[0].className = "circle";
+                        tiles[2][2] = bot;
+                        moved = true;
+                        break;
+    
+                    case 3: // Top right
+                        t = document.getElementsByName("02");
+                        t[0].className = "circle";
+                        tiles[0][2] = bot;
+                        moved = true;
+                        break;
                 }
             }
+        } else if (turns = 2) {
+            do {
+                let rnd = Math.floor(Math.random() * 4);
+                let t;
+                
+                switch (rnd) {
+                    case 0: // Top left
+                        if (tiles[0][0] == 0){
+                            t = document.getElementsByName("00");
+                            t[0].className = "circle";
+                            tiles[0][0] = bot;
+                            moved = true;
+                        }
+                        break;
+
+                    case 1: // Bottom left
+                        if (tiles[2][0] == 0){
+                            t = document.getElementsByName("20");
+                            t[0].className = "circle";
+                            tiles[2][0] = bot;
+                            moved = true;
+                        }    
+                        break;
+
+                    case 2: // Bottom right
+                        if (tiles[2][2] == 0){
+                            t = document.getElementsByName("22");
+                            t[0].className = "circle";
+                            tiles[2][2] = bot;
+                            moved = true; 
+                        }
+                        break; 
+
+                    case 3: // Top right
+                        if (tiles[0][2] == 0){
+                            t = document.getElementsByName("02");
+                            t[0].className = "circle";
+                            tiles[0][2] = bot;
+                            moved = true;  
+                        }    
+                        break;
+                }
+            } while (!moved)
         }
+    }
+
+    // If turns equals 1
+    if (turns == 1 && !moved) {
+        if (Math.floor(Math.random() * 100) < 80) {
+            if (tiles[1][1] == 0) {
+                let t = document.getElementsByName("11");
+                t[0].className = "circle";
+                tiles[1][1] = bot;
+                moved = true;
+            }
+        } else {
+            do {
+                let y = Math.floor(Math.random() * 3);
+                let x = Math.floor(Math.random() * 3);
+    
+                if (tiles[y][x] == 0 && y.toString() + x.toString() != "11") {
+                    name = y.toString() + x.toString();
+                    let t = document.getElementsByName(name);
+                    t[0].className = "circle";
+    
+                    tiles[y][x] = bot;
+                    moved = true;
+                }
+            } while (!moved);
+        }
+    }
+
+    // If turns equals 4
+    if (turns == 4 && !moved) {
+        // Check left
+        if (tiles[0][0] == human &&
+            tiles[1][0] == 0 &&
+            tiles[2][0] == 0) {
+                let t = document.getElementsByName("20");
+                t[0].className = "circle";
+                tiles[2][0] = bot;
+                moved = true;
+            }else if (tiles[0][0] == 0 &&
+                    tiles[1][0] == 0 &&
+                    tiles[2][0] == human) {
+                        let t = document.getElementsByName("00");
+                        t[0].className = "circle";
+                        tiles[0][0] = bot;
+                        moved = true;
+                    }
+
+        // Check right
+        if (!moved) {
+            if (tiles[0][2] == human &&
+                tiles[1][2] == 0 &&
+                tiles[2][2] == 0) {
+                    let t = document.getElementsByName("22");
+                    t[0].className = "circle";
+                    tiles[2][2] = bot;
+                    moved = true;
+                }else if (tiles[0][2] == 0 &&
+                        tiles[1][2] == 0 &&
+                        tiles[2][2] == human) {
+                            let t = document.getElementsByName("02");
+                            t[0].className = "circle";
+                            tiles[0][2] = bot;
+                            moved = true;
+                        }
+        }
+
+        // Check top
+        if (!moved) {
+            if (!moved) {
+                if (tiles[0][0] == human &&
+                    tiles[0][1] == 0 &&
+                    tiles[0][2] == 0) {
+                        let t = document.getElementsByName("02");
+                        t[0].className = "circle";
+                        tiles[0][2] = bot;
+                        moved = true;
+                    }else if (tiles[0][0] == 0 &&
+                            tiles[0][1] == 0 &&
+                            tiles[0][2] == human) {
+                                let t = document.getElementsByName("00");
+                                t[0].className = "circle";
+                                tiles[0][0] = bot;
+                                moved = true;
+                            }
+            }
+        }
+
+        // Check bottom
+        if (!moved) {
+            if (!moved) {
+                if (tiles[2][0] == human &&
+                    tiles[2][1] == 0 &&
+                    tiles[2][2] == 0) {
+                        let t = document.getElementsByName("22");
+                        t[0].className = "circle";
+                        tiles[2][2] = bot;
+                        moved = true;
+                    }else if (tiles[2][0] == 0 &&
+                            tiles[2][1] == 0 &&
+                            tiles[2][2] == human) {
+                                let t = document.getElementsByName("20");
+                                t[0].className = "circle";
+                                tiles[2][0] = bot;
+                                moved = true;
+                            }
+            }
+        }
+    }
+
+    // Play random
+    if (!moved) {
+        do {
+            let y = Math.floor(Math.random() * 3);
+            let x = Math.floor(Math.random() * 3);
+
+            if (tiles[y][x] == 0) {
+                name = y.toString() + x.toString();
+                let t = document.getElementsByName(name);
+                t[0].className = "circle";
+
+                tiles[y][x] = bot;
+                moved = true;
+            }
+        } while (!moved);
     }
 
     // Increase amount of turns by one
