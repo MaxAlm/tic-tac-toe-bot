@@ -2,9 +2,9 @@
 const tiles = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 const human = 1;    // Blue
 const bot = 2;      // Red
-var player = human; // Contains the number of the current player
-var turns = 0;      // Contains amount of turns
-var gameActive = true;
+let player = human; // Contains the number of the current player
+let turns = 0;      // Contains amount of turns
+let gameActive = true;
 
 //=== FUNCTIONS ===//
 function TileClick(y, x, element) {
