@@ -3,7 +3,7 @@ body {
     background-color: rgb(10, 10, 10);
 }
 
-h1 {
+#title {
     position: relative;
     top: -53px;
     color: white;
