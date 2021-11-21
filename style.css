@@ -9,13 +9,13 @@ body {
     color: white;
 
     text-align: center;
-    font-size: 66px;
+    font-size: 56px;
     line-height: 0.9;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h2 {
-    font-size: 33px;
+    font-size: 30px;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -36,11 +36,11 @@ h2 {
     position: relative;
     display: none;
     text-align: center;
-    top: 390px;
+    top: 415px;
     left: 170px;
 
     width: 110px;
-    height: 50px;
+    height: 45px;
     border: 4px solid white;
     border-radius: 11px;
     transition: background-color 0.2s;
@@ -157,7 +157,7 @@ h2 {
         width: 100px;
         height: 40px;
         left: 134px;
-        top: 332px;
+        top: 335px;
     }
 }
 
